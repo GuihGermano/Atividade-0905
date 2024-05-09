@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabalhando com Datas em JavaScript</title>
+</head>
+<body>
+
+<!-- Comparando Datas -->
+<h1>Comparando Datas</h1>
+
+<label for="data1Comparar">Digite a primeira data:</label>
+<input type="date" id="data1Comparar"><br>
+
+<label for="data2Comparar">Digite a segunda data:</label>
+<input type="date" id="data2Comparar"><br>
+
+<button onclick="compararDatas()">Comparar Datas</button>
+
+<p id="resultadoComparar"></p>
+
+<!-- Calculando Intervalo entre Datas -->
+<h1>Calculando Intervalo entre Datas</h1>
+
+<label for="data1Intervalo">Digite a primeira data:</label>
+<input type="date" id="data1Intervalo"><br>
+
+<label for="data2Intervalo">Digite a segunda data:</label>
+<input type="date" id="data2Intervalo"><br>
+
+<button onclick="calcularIntervalo()">Calcular Intervalo</button>
+
+<p id="resultadoIntervalo"></p>
+
+<!-- Exibindo Data Atual -->
+<h1>Data Atual</h1>
+
+<button onclick="exibirDataAtual()">Exibir Data Atual</button>
+
+<p id="dataAtual"></p>
+
+<script>
+  // Comparando Datas
+  function compararDatas() {
+    const data1Input = document.getElementById('data1Comparar').value;
+    const data2Input = document.getElementById('data2Comparar').value;
+
+    const data1 = new Date(data1Input);
+    const data2 = new Date(data2Input);
+
+    let resultado = "";
+
+    if (data1 > data2) {
+      resultado = "A primeira data é maior: " + adicionarDia(data1).toLocaleDateString();
+    } else if (data2 > data1) {
+      resultado = "A segunda data é maior: " + adicionarDia(data2).toLocaleDateString();
+    } else {
+      resultado = "As datas são iguais.";
+    }
+
+    document.getElementById('resultadoComparar').textContent = resultado;
+  }
+
+  // Função para adicionar um dia à data
+  function adicionarDia(data) {
+    const umDiaEmMS = 1000 * 60 * 60 * 24;
+    return new Date(data.getTime() + umDiaEmMS);
+  }
+
+  // Calculando Intervalo entre Datas
+  function calcularIntervalo() {
+    const data1Input = document.getElementById('data1Intervalo').value;
+    const data2Input = document.getElementById('data2Intervalo').value;
+
+    const data1 = new Date(data1Input);
+    const data2 = new Date(data2Input);
+
+    if (data1 > data2) {
+      alert("A primeira data deve ser mais antiga que a segunda data.");
+      return;
+    }
+
+    const diffEmMS = Math.abs(data2 - data1);
+    const umDiaEmMS = 1000 * 60 * 60 * 24;
+    const diffEmDias = Math.floor(diffEmMS / umDiaEmMS);
+
+    document.getElementById('resultadoIntervalo').textContent = "Intervalo em dias: " + diffEmDias;
+  }
+
+  // Exibindo Data Atual
+  function exibirDataAtual() {
+    const dataAtual = new Date();
+    const hora = String(dataAtual.getHours()).padStart(2, '0');
+    const minuto = String(dataAtual.getMinutes()).padStart(2, '0');
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    const ano = dataAtual.getFullYear();
+    document.getElementById('dataAtual').textContent = hora + ":" + minuto + " - " + dia + "/" + mes + "/" + ano;
+  }
+</script>
+
+</body>
+</html>
